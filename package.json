@@ -22,10 +22,12 @@
   },
   "homepage": "https://github.com/makenai/GutenbergsLabyrinth#readme",
   "dependencies": {
+    "async": "^1.5.2",
     "csv-parse": "^1.0.1",
     "lodash": "^3.10.1",
     "natural": "^0.2.1",
+    "request": "^2.67.0",
     "sentence-tokenizer": "0.0.7",
-    "sqlite3": "^3.1.1"
+    "sqlite3-wrapper": "^0.3.0"
   }
 }
