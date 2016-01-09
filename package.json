@@ -1,0 +1,31 @@
+{
+  "name": "gutenbergslabyrinth",
+  "version": "1.0.0",
+  "description": "VR Book Dungeons procedurally generated from Project Gutenberg Data. Play a fun a game, and discover books you may enjoy!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/makenai/GutenbergsLabyrinth.git"
+  },
+  "keywords": [
+    "codex",
+    "hackathon",
+    "2015"
+  ],
+  "author": "Pawel Szymczykowski <makenai@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/makenai/GutenbergsLabyrinth/issues"
+  },
+  "homepage": "https://github.com/makenai/GutenbergsLabyrinth#readme",
+  "dependencies": {
+    "csv-parse": "^1.0.1",
+    "lodash": "^3.10.1",
+    "natural": "^0.2.1",
+    "sentence-tokenizer": "0.0.7",
+    "sqlite3": "^3.1.1"
+  }
+}
