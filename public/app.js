@@ -16,6 +16,7 @@ $( document ).ready(function() {
 
   var Game = {
     map: {},
+    score: 100,
     foundWords: { feather: 1 },
     setSentence: function(q, direction) {
       this.currentSentence = q;
@@ -31,7 +32,8 @@ $( document ).ready(function() {
       var game = this;
       $('#currentPassage').fadeOut(function() {
         Dungeon.setupRoom(game, direction, function() {
-            $('#currentPassage').text( q.sentence ).fadeIn();
+            var highlighted = game.highlightPassage( q.sentence );
+            $('#currentPassage').html( highlighted ).fadeIn();
             var passageHeight = $('#currentPassage').height();
             var windowHeight = $(window).height();
             $('#currentPassage').css({
@@ -76,6 +78,22 @@ $( document ).ready(function() {
         this.jumpTo( this.right.id, 'right' );
       }
     },
+    highlightPassage: function(text) {
+      var highlighted = text;
+      if (this.right) {
+        highlighted = highlighted.replace( this.right.sourceWord, '<span class="passage">' + this.right.sourceWord + '</span>' )
+      }
+      if (this.left) {
+        highlighted = highlighted.replace( this.left.sourceWord, '<span class="passage">' + this.left.sourceWord + '</span>' )
+      }
+      for (var i=0;i<wordList.length;i++) {
+        var word = wordList[ i ];
+        if (!this.foundWords[ word ]) {
+          highlighted = highlighted.replace( word, '<span class="questWord">' + word + '</span>' );
+        }
+      }
+      return highlighted;
+    },
     updateList: function() {
       var markup = [];
       for (var i=0;i<wordList.length;i++) {
@@ -87,9 +105,28 @@ $( document ).ready(function() {
         }
         $('#listItems').html( markup.join("\n") );
       }
+    },
+    foundWord: function(word) {
+      if (!this.foundWords[ word ]) {
+        this.score += 100;
+        $('#score span').text( this.score );
+        this.foundWords[ word ] = 1;
+        var game = this;
+        $('#list').fadeIn(function() {
+          setTimeout(function() {
+            game.updateList();
+            $('#list').fadeOut();
+          }, 1000);
+        });
+      }
     }
   };
   Game.updateList();
+
+  $('#currentPassage').on('click', 'span.questWord', function(e) {
+    var word = e.target.innerHTML;
+    Game.foundWord( word );
+  });
 
   // Load Initial Sentence
   $.get('/random', function(data) {
