@@ -11,9 +11,15 @@ $( document ).ready(function() {
         } else {
           this.setRight( q.connections[0] );
           this.setLeft( q.connections[1] );
-        };        
+        };
       }
-      $('#currentQuestion').text( q.sentence );
+      Dungeon.setupRoom(this);
+      $('#currentPassage').text( q.sentence );
+      var passageHeight = $('#currentPassage').height();
+      var windowHeight = $(window).height();
+      $('#currentPassage').css({
+        top: (windowHeight / 2) - (passageHeight / 2) + 'px'
+      });
     },
     setRight: function(q) {
       this.right = q;
@@ -41,10 +47,14 @@ $( document ).ready(function() {
       });
     },
     jumpLeft: function() {
-      this.jumpTo( this.left.id );
+      if (this.left) {
+        this.jumpTo( this.left.id );
+      }
     },
     jumpRight: function() {
-      this.jumpTo( this.right.id );
+      if (this.right) {
+        this.jumpTo( this.right.id );
+      }
     }
   };
 
@@ -71,6 +81,25 @@ $( document ).ready(function() {
   $('#right').on('click', function(e) {
     Game.jumpRight();
     e.preventDefault();
+  });
+
+  $(window).on('keydown', function(e) {
+    if (e.keyCode == 87 || e.keyCode == 38 ) {
+      Game.nextSentence();
+      e.preventDefault();
+    }
+    if (e.keyCode == 83 || e.keyCode == 40 ) {
+      Game.prevSentence();
+      e.preventDefault();
+    }
+    if (e.keyCode == 65 || e.keyCode == 37 ) {
+      Game.jumpLeft();
+      e.preventDefault();
+    }
+    if (e.keyCode == 68 || e.keyCode == 39 ) {
+      Game.jumpRight();
+      e.preventDefault();
+    }
   });
 
 

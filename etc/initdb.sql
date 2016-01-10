@@ -3,6 +3,7 @@ CREATE TABLE books (
   title STRING NOT NULL,
   author STRING NOT NULL,
   url STRING NOT NULL UNIQUE,
+  cover STRING,
   metadata TEXT
 );
 

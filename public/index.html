@@ -2,11 +2,19 @@
 <html>
   <head>
     <title>Gutenberg's Labyrinth</title>
+    <link href='https://fonts.googleapis.com/css?family=Averia+Serif+Libre' rel='stylesheet' type='text/css'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="dungeon.js"></script>
     <script src="app.js"></script>
     <style type="text/css">
+      body { margin: 0; }
       #controls {
         width: 150px;
+        height: 150px;
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
         outline: 1px solid black;
         text-align: center;
       }
@@ -23,10 +31,37 @@
         display: block;
         margin: auto;
       }
+      #dungeon {
+        overflow: hidden;
+        width: 1024px;
+        height: 768px;
+      }
+      #currentPassage {
+        font-family: 'Averia Serif Libre', cursive;
+        font-size: 40px;
+        width: 80%;
+        position: absolute;
+        text-align: center;
+        top: 100px;
+        color: #fff;
+        margin: 0 10%;
+        -webkit-animation: neon 1.5s ease-in-out infinite alternate;
+        -moz-animation: neon 1.5s ease-in-out infinite alternate;
+        animation: neon 1.5s ease-in-out infinite alternate;
+      }
+      @-webkit-keyframes neon {
+        from {
+          text-shadow: 0 0 10px #eee, 0 0 20px #eee, 0 0 30px #eee, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;
+        }
+        to {
+          text-shadow: 0 0 2px #eee, 0 0 5px #eee, 0 0 10px #eee, 0 0 10px #228DFF, 0 0 15px #228DFF, 0 0 20px #228DFF, 0 0 20px #228DFF, 0 0 35px #228DFF;
+        }
+      }
     </style>
   </head>
   <body>
-    <h1 id="currentQuestion"></h1>
+    <div id="dungeon"></div>
+    <h1 id="currentPassage"></h1>
     <div id="controls">
       <button id="forward">FORWARD</button>
       <button id="left">LEFT</button>

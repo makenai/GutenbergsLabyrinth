@@ -23,11 +23,13 @@ fs.createReadStream(masterList).pipe(CSVParser({
       }],
       'createBook': [ 'getText', function(callback, results) {
         var gutenbergId = baseUrl.match(/\d+$/)[0];
+        var cover = getCover( baseUrl );
         db.Book.create({
           id: gutenbergId,
           title: row['Title'],
           author: row['Author'],
           url: row['Gitenberg URL'],
+          cover: cover,
           metadata: results.getMetaData
         }, callback);
       }],
@@ -84,6 +86,11 @@ function removeAsciiDoc(content) {
   return _.reject(content.split("\n"), function(line) {
     return line.match(/^(image:|=|\.|-|#|\*|\[|\+)/);
   }).join('\n');
+}
+
+function getCover(baseUrl, callback) {
+  var url = baseUrl.replace(/^https?:\/\/github\.com\//,'https://raw.githubusercontent.com/') + '/master/cover.jpg';
+  return url;
 }
 
 function getGitenburgMetadata(baseUrl, callback) {
