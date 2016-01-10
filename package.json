@@ -4,6 +4,7 @@
   "description": "VR Book Dungeons procedurally generated from Project Gutenberg Data. Play a fun a game, and discover books you may enjoy!",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,11 +24,18 @@
   "homepage": "https://github.com/makenai/GutenbergsLabyrinth#readme",
   "dependencies": {
     "async": "^1.5.2",
+    "browserify-express": "^0.1.4",
     "csv-parse": "^1.0.1",
+    "express": "^4.13.3",
+    "js-yaml": "^3.4.6",
     "lodash": "^3.10.1",
     "natural": "^0.2.1",
+    "pos": "^0.3.0",
     "request": "^2.67.0",
     "sentence-tokenizer": "0.0.7",
     "sqlite3-wrapper": "^0.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.8.1"
   }
 }
