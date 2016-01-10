@@ -2,7 +2,7 @@ $( document ).ready(function() {
 
   var Game = {
     map: {},
-    setSentence: function(q) {
+    setSentence: function(q, direction) {
       this.currentSentence = q;
       if (q.connections) {
         if ( Math.random() > 0.5 ) {
@@ -13,13 +13,18 @@ $( document ).ready(function() {
           this.setLeft( q.connections[1] );
         };
       }
-      Dungeon.setupRoom(this);
-      $('#currentPassage').text( q.sentence );
-      var passageHeight = $('#currentPassage').height();
-      var windowHeight = $(window).height();
-      $('#currentPassage').css({
-        top: (windowHeight / 2) - (passageHeight / 2) + 'px'
+      var game = this;
+      $('#currentPassage').fadeOut(function() {
+        Dungeon.setupRoom(game, direction, function() {
+            $('#currentPassage').text( q.sentence ).fadeIn();
+            var passageHeight = $('#currentPassage').height();
+            var windowHeight = $(window).height();
+            $('#currentPassage').css({
+              top: (windowHeight / 2) - (passageHeight / 2) + 'px'
+            });            
+        });
       });
+
     },
     setRight: function(q) {
       this.right = q;
@@ -32,28 +37,28 @@ $( document ).ready(function() {
     nextSentence: function() {
       var q = this.currentSentence;
       $.get('/book/' + q.bookId + '/sentence/' + (q.sentenceNumber + 1), function(data) {
-        Game.setSentence( data );
+        Game.setSentence( data, 'forward' );
       });
     },
     prevSentence: function() {
       var q = this.currentSentence;
       $.get('/book/' + q.bookId + '/sentence/' + (q.sentenceNumber - 1), function(data) {
-        Game.setSentence( data );
+        Game.setSentence( data, 'backward' );
       });
     },
-    jumpTo: function(id) {
+    jumpTo: function(id, direction) {
       $.get('/sentence/' + id, function(data) {
-        Game.setSentence( data );
+        Game.setSentence( data, direction );
       });
     },
     jumpLeft: function() {
       if (this.left) {
-        this.jumpTo( this.left.id );
+        this.jumpTo( this.left.id, 'left' );
       }
     },
     jumpRight: function() {
       if (this.right) {
-        this.jumpTo( this.right.id );
+        this.jumpTo( this.right.id, 'right' );
       }
     }
   };

@@ -37,6 +37,8 @@
         height: 768px;
       }
       #currentPassage {
+        display: none;
+        opacity: 0.75;
         font-family: 'Averia Serif Libre', cursive;
         font-size: 40px;
         width: 80%;
@@ -48,6 +50,9 @@
         -webkit-animation: neon 1.5s ease-in-out infinite alternate;
         -moz-animation: neon 1.5s ease-in-out infinite alternate;
         animation: neon 1.5s ease-in-out infinite alternate;
+      }
+      #currentPassage:hover {
+        opacity: 1;
       }
       @-webkit-keyframes neon {
         from {
