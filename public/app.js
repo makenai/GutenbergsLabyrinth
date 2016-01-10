@@ -36,7 +36,7 @@ $( document ).ready(function() {
             $('#currentPassage').html( highlighted );
             if (!$('#logo').is(':visible')) {
               $('#currentPassage').fadeIn();
-              positionPassage();              
+              positionPassage();
             }
         });
       });
@@ -172,6 +172,10 @@ $( document ).ready(function() {
   $(window).on('click', hideLogo);
 
   $(window).on('keydown', function(e) {
+    if ( $('#logo').is(':visible') ) {
+      hideLogo();
+      return;
+    }
     if (e.keyCode == 87 || e.keyCode == 38 ) {
       Game.nextSentence();
       e.preventDefault();
@@ -194,9 +198,7 @@ $( document ).ready(function() {
       } else {
         $('#list').fadeIn();
       }
-      hideLogo();
     }
-    hideLogo();
   });
 
 
