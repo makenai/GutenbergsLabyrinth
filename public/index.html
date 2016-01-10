@@ -3,6 +3,8 @@
   <head>
     <title>Gutenberg's Labyrinth</title>
     <link href='https://fonts.googleapis.com/css?family=Averia+Serif+Libre' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Nothing+You+Could+Do' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script src="dungeon.js"></script>
@@ -10,13 +12,21 @@
     <style type="text/css">
       body { margin: 0; }
       #controls {
-        width: 150px;
-        height: 150px;
+        width: 180px;
         position: absolute;
         right: 10px;
         bottom: 10px;
-        outline: 1px solid black;
         text-align: center;
+      }
+      #controls button {
+        display: inline-block;
+        font-size: 30px;
+        background-color: gold;
+        border-color: #2B1B17;
+        color: #2B1B17;;
+        width: 50px;
+        height: 50px;
+        margin: 5px;
       }
       button:disabled {
         opacity: 0.25;
@@ -62,16 +72,60 @@
           text-shadow: 0 0 2px #eee, 0 0 5px #eee, 0 0 10px #eee, 0 0 10px #228DFF, 0 0 15px #228DFF, 0 0 20px #228DFF, 0 0 20px #228DFF, 0 0 35px #228DFF;
         }
       }
+      #score {
+        width: 100px;
+        top: 15px;
+        right: 10px;
+        position: absolute;
+        font-family: 'Averia Serif Libre', cursive;
+        color: white;
+        text-alignt: right;
+        font-size: 20px;
+      }
+      #list {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        height: 787px;
+        background-image: url('images/parchment.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      #list ul {
+        display: block;
+        width: 400px;
+        padding-top: 150px;
+        margin: auto;
+        list-style-type: none;
+        font-size: 26px;
+        font-family: 'Nothing You Could Do', cursive;
+        color: #2B1B17;
+      }
+      #list ul li.found {
+        text-decoration: line-through;
+      }
     </style>
   </head>
   <body>
     <div id="dungeon"></div>
     <h1 id="currentPassage"></h1>
     <div id="controls">
-      <button id="forward">FORWARD</button>
-      <button id="left">LEFT</button>
-      <button id="right">RIGHT</button>
-      <button id="backward">BACKWARD</button>
+      <div>
+        <button id="forward"><i class="fa fa-arrow-up"></i></button>
+      </div>
+      <button id="left"><i class="fa fa-arrow-left"></i></button>
+      <button id="right"><i class="fa fa-arrow-right"></i></button>
+      <button id="backward"><i class="fa fa-arrow-down"></i></button>
+    </div>
+    <div id="score">
+      Score: <span>100</span>
+    </div>
+    <div id="list">
+      <ul id="listItems">
+      </ul>
     </div>
   </body>
 </html>

@@ -1,7 +1,22 @@
 $( document ).ready(function() {
 
+  var wordList = [
+    'shore',
+    'things',
+    'brother',
+    'please',
+    'against',
+    'people',
+    'feather',
+    'know',
+    'trouble',
+    'danger',
+    'and'
+  ];
+
   var Game = {
     map: {},
+    foundWords: { feather: 1 },
     setSentence: function(q, direction) {
       this.currentSentence = q;
       if (q.connections) {
@@ -21,7 +36,7 @@ $( document ).ready(function() {
             var windowHeight = $(window).height();
             $('#currentPassage').css({
               top: (windowHeight / 2) - (passageHeight / 2) + 'px'
-            });            
+            });
         });
       });
 
@@ -60,8 +75,21 @@ $( document ).ready(function() {
       if (this.right) {
         this.jumpTo( this.right.id, 'right' );
       }
+    },
+    updateList: function() {
+      var markup = [];
+      for (var i=0;i<wordList.length;i++) {
+        var word = wordList[i];
+        if (this.foundWords[ word ]) {
+          markup.push('<li class="found">' + word + '</li>');
+        } else {
+          markup.push('<li>' + word + '</li>');
+        }
+        $('#listItems').html( markup.join("\n") );
+      }
     }
   };
+  Game.updateList();
 
   // Load Initial Sentence
   $.get('/random', function(data) {
@@ -104,6 +132,13 @@ $( document ).ready(function() {
     if (e.keyCode == 68 || e.keyCode == 39 ) {
       Game.jumpRight();
       e.preventDefault();
+    }
+    if (e.keyCode == 73) {
+      if ( $('#list').is(':visible') ) {
+        $('#list').fadeOut();
+      } else {
+        $('#list').fadeIn();
+      }
     }
   });
 

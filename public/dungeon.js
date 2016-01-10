@@ -29,7 +29,7 @@ $( document ).ready(function() {
   var dungeon = document.getElementById('dungeon');
   var aspect = dungeon.offsetWidth / dungeon.offsetHeight;
 
-  var camera = new THREE.PerspectiveCamera(70, aspect, 0.01, 30);
+  var camera = new THREE.PerspectiveCamera(60, aspect, 0.01, 30);
   camera.position.set(2, 0.2, 6);
 
   var renderer = new THREE.WebGLRenderer();
