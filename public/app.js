@@ -33,12 +33,11 @@ $( document ).ready(function() {
       $('#currentPassage').fadeOut(function() {
         Dungeon.setupRoom(game, direction, function() {
             var highlighted = game.highlightPassage( q.sentence );
-            $('#currentPassage').html( highlighted ).fadeIn();
-            var passageHeight = $('#currentPassage').height();
-            var windowHeight = $(window).height();
-            $('#currentPassage').css({
-              top: (windowHeight / 2) - (passageHeight / 2) + 'px'
-            });
+            $('#currentPassage').html( highlighted );
+            if (!$('#logo').is(':visible')) {
+              $('#currentPassage').fadeIn();
+              positionPassage();              
+            }
         });
       });
 
@@ -123,6 +122,23 @@ $( document ).ready(function() {
   };
   Game.updateList();
 
+  function positionPassage() {
+    var passageHeight = $('#currentPassage').height();
+    var windowHeight = $(window).height();
+    $('#currentPassage').css({
+      top: (windowHeight / 2) - (passageHeight / 2) + 'px'
+    });
+  }
+
+  function hideLogo() {
+    if ( $('#logo').is(':visible') ) {
+      $('#logo').fadeOut( function() {
+        $('#currentPassage').fadeIn();
+        positionPassage();
+      });
+    }
+  }
+
   $('#currentPassage').on('click', 'span.questWord', function(e) {
     var word = e.target.innerHTML;
     Game.foundWord( word );
@@ -153,6 +169,8 @@ $( document ).ready(function() {
     e.preventDefault();
   });
 
+  $(window).on('click', hideLogo);
+
   $(window).on('keydown', function(e) {
     if (e.keyCode == 87 || e.keyCode == 38 ) {
       Game.nextSentence();
@@ -176,7 +194,9 @@ $( document ).ready(function() {
       } else {
         $('#list').fadeIn();
       }
+      hideLogo();
     }
+    hideLogo();
   });
 
 
